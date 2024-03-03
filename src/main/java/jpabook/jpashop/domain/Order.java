@@ -3,6 +3,8 @@ package jpabook.jpashop.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS" )
@@ -11,11 +13,15 @@ public class Order {
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
-//    @Column(name = "MEMBER_ID")
-//    private Long memberId;
+
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID") //연관관계의 주인 -> 이미 지정을 해줬음
     private Member member;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     private LocalDateTime orderDate;
 
@@ -51,6 +57,8 @@ public class Order {
         this.status = status;
     }
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 }
