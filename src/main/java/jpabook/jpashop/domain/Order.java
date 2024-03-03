@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ORDERS" )
+@Table(name = "ORDERS")
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
 
