@@ -18,6 +18,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID") //연관관계의 주인 -> 이미 지정을 해줬음
     private Member member;
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
